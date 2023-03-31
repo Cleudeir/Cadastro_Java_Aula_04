@@ -7,7 +7,7 @@ function Header() {
     const router = useRouter();
     return (
     <header className={styles.header}>
-      {!router.pathname.includes("add-update") &&    <Link href={'/add-update/new'}>+</Link>}
+      {!router.pathname.includes("add-update") && <Link href={'/add-update/new'}>+</Link>}
       {router.pathname != '/languages' &&  <Link href={'/languages'}>←</Link>}
     </header>
     );

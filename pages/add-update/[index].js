@@ -9,18 +9,15 @@ export default function AddUpDate() {
   const router = useRouter();
   const id = router.query.index
   console.log(id);
-  const [title, setTitle] = useState("");
-  const [image, setImage] = useState("");
+  const [title, setTitle] = useState("cpp");
+  const [image, setImage] = useState("https://raw.githubusercontent.com/abrahamcalf/programming-languages-logos/master/src/cpp/cpp_256x256.png");
   const [description, setDescription] = useState("");
-  const [ranking, setRanking] = useState("");
+  const [ranking, setRanking] = useState(5);
   const [origin, setOrigin] = useState("");
 
   useEffect(() => {
     if(id && id !== "new"){
-      fetch("/api/readbyid", {
-        method: "POST",
-        body: JSON.stringify({id}),
-      })
+      fetch(`/api/readbyid/${id}`)
       .then(response => response.json())
       .then(item=> {
         console.log(item)
@@ -65,7 +62,7 @@ export default function AddUpDate() {
       origin,
     }
     console.log(item);
-    await fetch("/api/add", {
+    await fetch("/api/add/", {
       method: "POST",
       body: JSON.stringify(item),
     });
@@ -79,10 +76,7 @@ export default function AddUpDate() {
         origin,
       }
       console.log(item);
-      await fetch("/api/update", {
-        method: "POST",
-        body: JSON.stringify(item),
-      });
+      await fetch(`/api/update/${item}`);
     }
     window.location.href = "/languages";
 };
@@ -136,13 +130,13 @@ export default function AddUpDate() {
           onChange={(e)=>{setRanking(e.target.value)}}
             type="number"
             id="ranking"
-            placeholder="Ranking"
+            placeholder="Star"
             name="Ranking"
             min="1"
-            max="100"
+            max="5"
           />
           <input value={origin}
-              onChange={(e)=>{setOrigin(e.target.value)}} type="text" placeholder="Origin" id="origin" name="origin" />
+              onChange={(e)=>{setOrigin(e.target.value)}} type="text" placeholder="Author" id="origin" name="origin" />
           <input type="submit" value="Submit" />
         </form>
       </main>

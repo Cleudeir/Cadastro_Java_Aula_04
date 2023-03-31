@@ -1,16 +1,17 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 export default async function handler(req, res) {
-    const {id} = JSON.parse(req.body)
-    console.log({id})
-    const request = await fetch(`${process.env.SERVER_IP  || "http://localhost:8080"}/readbyid/${id}`,{
+    const {id} = req.query
+    console.log(id)
+    const request = await fetch(`${process.env.SERVER_IP  || "http://localhost:8080"}/delete/${id}`,{
         headers:{
             "Content-Type": "application/json",
             "X-Custom-Header": "ProcessThisImmediately",
           },
-        method: "GET"
+        method: "DELETE"
       }
     )
-    res.status(200).json(await request.json())
+    console.log(request)
+    res.status(200).json(req.statusText)
   }
   

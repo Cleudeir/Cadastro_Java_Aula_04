@@ -9,14 +9,14 @@ export default function Home() {
 const [isData, setData] = useState(null)
 
 useEffect(() => {
-  fetch("/api/readall")
+  fetch("/api/languages")
   .then(data=>data.json())
   .then((data)=>setData(data))
 },[])
 
 async function Delete(id){
     console.log(id)
-    const request = await fetch("/api/delete",{
+    const request = await fetch(`/api/delete/${id}`,{
       method: "POST",
       body: JSON.stringify({id})
     }
@@ -34,7 +34,7 @@ async function Delete(id){
       </Head>
       <main className={styles.main}>
         <Header/>
-     {isData && isData.map(item=>(
+     {isData && isData.reverse().map(item=>(
       <div key={item.id} className={styles.card}>
         <h1>{item.title.toUpperCase()}</h1>
         <img src={item.image} 
@@ -43,8 +43,8 @@ async function Delete(id){
         <div className={styles.containerDescription}>
           <div>
           <h3>XP: {item.description}</h3>
-          <h3>like: {"⭐".repeat(item.ranking)} </h3>
-          <h3>Origin: {item.origin}</h3>
+          <h3>Stars: {"⭐".repeat(item.ranking)} </h3>
+          <h3>Author: {item.origin}</h3>
           </div>   
           <div>
           <button type="button" >
@@ -54,8 +54,7 @@ async function Delete(id){
           </button>
           <button type="button" onClick={()=> Delete(item.id)}>
             <img src={"https://cdn-icons-png.flaticon.com/512/2891/2891491.png"}/>
-          </button>      
-          
+          </button>    
             </div>     
         </div>
         
