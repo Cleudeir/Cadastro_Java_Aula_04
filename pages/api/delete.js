@@ -3,7 +3,7 @@
 export default async function handler(req, res) {
     const {id} = JSON.parse(req.body)
     console.log(id)
-    const request = await fetch(`${process.env.SERVER_IP  | "http://localhost:8080"}/delete/${id}`,{
+    const request = await fetch(`${process.env.SERVER_IP  || "http://localhost:8080"}/delete/${id}`,{
         headers:{
             "Content-Type": "application/json",
             "X-Custom-Header": "ProcessThisImmediately",

@@ -3,7 +3,7 @@
 export default async function handler(req, res) {
     const {id, title, image, description, ranking, origin} = JSON.parse(req.body)
     console.log({id, title, image, description, ranking, origin})
-    const request = await fetch(`${process.env.SERVER_IP  | "http://localhost:8080"}/update/${id}`,{
+    const request = await fetch(`${process.env.SERVER_IP  || "http://localhost:8080"}/update/${id}`,{
         headers:{
             "Content-Type": "application/json",
             "X-Custom-Header": "ProcessThisImmediately",
